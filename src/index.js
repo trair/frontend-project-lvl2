@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
+import parse from './parses.js';
 
 const getExtension = (filepath) => path.extname(filepath);
 const getAbsolutePath = (filepath) => path.resolve(filepath);
@@ -10,8 +11,8 @@ const genDiff = (filepath1, filepath2) => {
     const extention1 = getExtension(filepath1);
     const extention2 = getExtension(filepath2);
 
-    const parsedFile1 = JSON.parse(readFileSync(getAbsolutePath(filepath1)), extention1);
-    const parsedFile2 = JSON.parse(readFileSync(getAbsolutePath(filepath2)), extention2);
+    const parsedFile1 = parse(readFileSync(getAbsolutePath(filepath1)), extention1);
+    const parsedFile2 = parse(readFileSync(getAbsolutePath(filepath2)), extention2);
 
     const keys = _.union(Object.keys(parsedFile1), Object.keys(parsedFile2));
     const sortedKeys = _.sortBy(keys);
