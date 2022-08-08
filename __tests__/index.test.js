@@ -14,13 +14,13 @@ test('genDiff (json-json)', () => {
 });
 
 test('genDiff (yml-yaml)', () => {
-    expect(genDiff(getFixturePath('file3.yml'), getFixturePath('file4.yaml'))).toEqual(readFile('expectedJSON.txt'));
+    expect(genDiff(getFixturePath('file1.yml'), getFixturePath('file2.yaml'))).toEqual(readFile('expectedJSON.txt'));
 });
 
 test('genDiff (json-yaml)', () => {
-  expect(genDiff(getFixturePath('file1.json'), getFixturePath('file4.yaml'))).toEqual(readFile('expectedJSON.txt'));
+  expect(genDiff(getFixturePath('file1.json'), getFixturePath('file2.yaml'))).toEqual(readFile('expectedJSON.txt'));
 });
   
 test('genDiff (json-yml)', () => {
-  expect(genDiff(getFixturePath('file3.yml'), getFixturePath('file2.json'))).toEqual(readFile('expectedJSON.txt'));
+  expect(genDiff(getFixturePath('file1.yml'), getFixturePath('file2.json'))).toEqual(readFile('expectedJSON.txt'));
 });
