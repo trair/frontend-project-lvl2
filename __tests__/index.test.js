@@ -1,3 +1,4 @@
+import { test, expect } from 'jest';
 import { getFixturePath, readFile } from '../__fixtures__/getFixturePath.js';
 import genDiff from '../src/index.js';
 
