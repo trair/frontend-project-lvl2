@@ -10,23 +10,8 @@ publish:
 link:
 	npm link
 
-make lint:
+lint:
 	npx eslint .
 
-json-diff:
-	gendiff __fixtures__/file1.json __fixtures__/file2.json
-
-yml-yaml-diff:
-	gendiff __fixtures__/file1.yml __fixtures__/file2.yaml
-
-json-yml-diff-first:
-	gendiff __fixtures__/file1.json __fixtures__/file2.yaml
-
-json-yml-diff-second:
-	gendiff __fixtures__/file1.yml __fixtures__/file2.json
-
 test:
-	NODE_OPTIONS=--experimental-vm-modules npx jest
-
-test-coverage:
-	NODE_OPTIONS=--experimental-vm-modules npx jest --coverage
+	npx jest --coverage
