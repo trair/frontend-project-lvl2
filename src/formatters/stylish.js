@@ -11,8 +11,7 @@ const makeString = (value, num = 1) => {
     const newKey = value[key];
     return `${genIndent(num + 1)}  ${key}: ${makeString(newKey, num + 1)}`;
   });
-
-  return `{\n${result.join('\n')}\n  ${genIndent(num)}}`
+  return `{\n${result.join('\n')}\n  ${genIndent(num)}}`;
 };
 
 const stylish = (obj) => {
@@ -26,7 +25,7 @@ const stylish = (obj) => {
       children,
     } = node;
     const result1 = `${genIndent(num)}- ${key}: ${makeString(value1, num)}`;
-    const result2 = `${genIndent(num)}- ${key}: ${makeString(value2, num)}`;
+    const result2 = `${genIndent(num)}+ ${key}: ${makeString(value2, num)}`;
     switch (type) {
       case 'object': {
         const objectResult = children.flatMap((child) => iter(child, num + 1));
@@ -37,18 +36,15 @@ const stylish = (obj) => {
       case 'add':
         return `${genIndent(num)}+ ${key}: ${makeString(value, num)}`;
       case 'defferent':
-        return `${result1}\n${result2}`;
+        return (`${result1}\n${result2}`);
       case 'same':
         return `${genIndent(num)}  ${key}: ${makeString(value, num)}`;
       default:
         console.log('Error');
     }
-
     return node;
   };
   const result = obj.map((item) => iter(item));
-  
   return `{\n${result.join('\n')}\n}`;
 };
-
 export default stylish;
