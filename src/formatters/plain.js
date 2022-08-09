@@ -1,36 +1,44 @@
 import _ from 'lodash';
 
-const plainTypeOf = (value) => {
-  if (_.isPlainObject(value)) {
-    return '[complex value]';
-  }
-  if (typeof value === 'string') {
-    return `${value}`;
+const toDoString = (value) => {
+  if (_.isObject(value)) {
+    return `[complex value]`;
   }
 
-  return value;
+  return typeof value === 'string' ? `'${value}'` : value;
 };
 
-const plain = (diffTree) => {
-  const buildString = (nodes, path = '') => nodes
-    .filter((node) => node.type !== 'unchanged')
-    .map((node) => {
-      const buildPath = path ? `${path}.${node.key}` : node.key;
-      switch (node.type) {
-        case 'added':
-          return `Property '${buildPath}' was added with value: ${plainTypeOf(node.value)}`;
-        case 'deleted':
-          return `Property '${buildPath}' was removed`;
-        case 'changed':
-          return `Property '${buildPath}' was updated. From ${plainTypeOf(node.valueBefore)} to ${plaintify(node.valueAfter)}`;
-        case 'nested':
-          return `${buildString(node.children, buildPath)}`;
-        default:
-          throw new Error(`This type does not exist: ${node.type}`);
-      }
-    }).join('\n');
+const plain = (obj) => {
+  const iter = (node, parent = '') => {
+    const {
+      type,
+      key,
+      value,
+      value1,
+      value2,
+      children,
+    } = node;
+    switch (type) {
+      case 'object':
+        const objectResult = children.flatMap((child) => iter(child, `${parent}${key}`));
+        return objectResult.join('\n');
+      case 'add':
+        return `Property '${parent}${key}' was added with value: ${toDoString}`;
+      case 'delete':
+        return `Property '${parent}${key}' was removed`;
+      case 'defferent':
+        return `Property '${parent}${key}' was updated. From ${toDoString(value1)} to ${toDoString(value2)}`;
+      case 'same':
+        return [];
+      default:
+        console.log('Error');
+    }
 
-  return buildString(diffTree);
+    return node;
+  };
+  const result = obj.map((item) => iter(item));
+
+  return `${result.join('\n')}`;
 };
 
 export default plain;

@@ -1,38 +1,54 @@
-const setIntend = (depth, spaceCount = 4) => ' '.repeat(spaceCount * depth - 2);
+import _ from 'lodash';
 
-const stringify = (file, treeDepth) => {
-  if (typeof file !== 'object') {
-    return `${file}`;
-  }
-  if (file === null) {
-    return null;
-  }
-  const lines = Object
-    .entries(file)
-    .map(([key, value]) => `${setIntend(treeDepth + 1)}  ${key}: ${stringify(value, treeDepth + 1)}`);
-  return ['{', ...lines, `${setIntend(treeDepth)}  }`].join('\n');
-};
+const genIndent = (num, str = ' ') => str.repeat(num * 4 - 2);
 
-const stylish = (depthTree) => {
-  const iter = (tree, depth) => tree.map((node) => {
-    const buildString = (value, symbol) => `${setIntend(depth)}${symbol} ${node.key}: ${stringify(value, depth)}\n`;
-    switch (node.type) {
-      case 'added':
-        return `${buildString(node.value, '+')}`;
-      case 'deleted':
-        return `${buildString(node.value, '-')}`;
-      case 'changed':
-        return `${buildString(node.valueBefore, '-')}${buildString(node.valueAfter, '+')}`;
-      case 'unchanged':
-        return `${buildString(node.value, ' ')}`;
-      case 'nested':
-        return ` ${setIntend(depth)} ${node.key}: {\n${iter(node.children, depth + 1).join('')}${setIntend(depth)}  }\n`;
-      default:
-        throw new Error('Sorry something went wrong. Try again.');
-    }
+const makeString = (value, num = 1) => {
+  if (!_.isObject(value)) {
+    return value;
+  }
+  const keys = Object.keys(value);
+  const result = keys.map((key) => {
+    const newKey = value[key];
+    return `${genIndent(num + 1)}  ${key}: ${makeString(newKey, num + 1)}`;
   });
 
-  return `{\n${iter(depthTree, 1).join('')}}`;
+  return `{\n${result.join('\n')}\n  ${genIndent(num)}}`
+};
+
+const stylish = (obj) => {
+  const iter = (node, num = 1) => {
+    const {
+      type,
+      key,
+      value,
+      value1,
+      value2,
+      children,
+    } = node;
+    const result1 = `${genIndent(num)}- ${key}: ${makeString(value1, num)}`;
+    const result2 = `${genIndent(num)}- ${key}: ${makeString(value2, num)}`;
+    switch (type) {
+      case 'object': {
+        const objectResult = children.flatMap((child) => iter(child, num + 1));
+        return `${genIndent(num)}  ${key}: {\n${objectResult.join('\n')}\n${genIndent(num)}  }`;
+      }
+      case 'delete':
+        return `${genIndent(num)}- ${key}: ${makeString(value, num)}`;
+      case 'add':
+        return `${genIndent(num)}+ ${key}: ${makeString(value, num)}`;
+      case 'defferent':
+        return `${result1}\n${result2}`;
+      case 'same':
+        return `${genIndent(num)}  ${key}: ${makeString(value, num)}`;
+      default:
+        console.log('Error');
+    }
+
+    return node;
+  };
+  const result = obj.map((item) => iter(item));
+  
+  return `{\n${result.join('\n')}\n}`;
 };
 
 export default stylish;
