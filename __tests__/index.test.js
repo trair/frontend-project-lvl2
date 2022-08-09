@@ -1,4 +1,4 @@
-import { getFixturePath, readFile } from '../__fixtures__/getFixturePath.js';
+import { getFixturePath, readFile } from '../__fixtures__/fixturePath.js';
 import genDiff from '../src/index.js';
 
 const stylishResult = readFile('stylishResult.txt');

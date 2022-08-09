@@ -1,4 +1,4 @@
-import _, { isObject } from 'lodash';
+import _ from 'lodash';
 
 const compareData = (obj1, obj2) => {
   const uniqKeys = _.uniq([...Object.keys(obj1), ...Object.keys(obj2)]);
