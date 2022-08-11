@@ -9,3 +9,9 @@
 
 ### Compare flat .yaml files:
 [![asciicast](https://asciinema.org/a/acUxCUHXXZmwhFsWWcsZvCH5V.svg)](https://asciinema.org/a/acUxCUHXXZmwhFsWWcsZvCH5V)
+
+### Compare .json files with default format - stylish (example of 6th step):
+[![asciicast](https://asciinema.org/a/QluxoubgkzoPR1lNJRTgjYN3A.svg)](https://asciinema.org/a/QluxoubgkzoPR1lNJRTgjYN3A)
+
+### Compare files (example of 7th and 8th steps):
+[![asciicast](https://asciinema.org/a/fc5eCGv16j2HOmXmU4wQKodEo.svg)](https://asciinema.org/a/fc5eCGv16j2HOmXmU4wQKodEo)
