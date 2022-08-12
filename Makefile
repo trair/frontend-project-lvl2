@@ -10,6 +10,6 @@ publish:
 lint:
 	npx eslint .
 
-test:
+test-coverage:
 	npx jest --coverage
 
