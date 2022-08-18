@@ -1,5 +1,4 @@
 # Files difference calculator
-___
 
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/trair/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/trair/frontend-project-lvl2/actions)
@@ -13,7 +12,7 @@ ___
 
 Difference Calculator is a program that determines the difference between two data structures.
 
-___
+---
 
 ### Installation
 
