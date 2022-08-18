@@ -8,13 +8,13 @@
 
 ___
 
-### Description
+### Description:
 
 Difference Calculator is a program that determines the difference between two data structures.
 
 ---
 
-### Installation
+### Installation:
 
 ```
 make install
