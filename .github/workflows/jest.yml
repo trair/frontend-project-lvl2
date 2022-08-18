@@ -19,7 +19,7 @@ jobs:
       - name: run jest
         run: make test
       - name: code coverage 
-        uses:  paambaati/codeclimate-action@v2.5.7
+        uses:  paambaati/codeclimate-action@v3.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
