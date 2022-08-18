@@ -22,7 +22,6 @@
   "homepage": "https://github.com/trair/frontend-project-lvl2#readme",
   "dependencies": {
     "commander": "^9.4.0",
-    "eslint-plugin-jest": "^26.8.2",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21"
   },
@@ -30,6 +29,7 @@
     "eslint": "^8.21.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.8.3",
     "jest": "^28.1.3"
   }
 }
