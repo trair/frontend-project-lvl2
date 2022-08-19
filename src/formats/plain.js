@@ -29,7 +29,7 @@ const plain = (obj) => {
       case 'defferent':
         return `Property '${parent}${key}' was updated. From ${stringify(value1)} to ${stringify(value2)}`;
       case 'same':
-        return [];
+        return null;
       default:
         console.log('Error');
     }
