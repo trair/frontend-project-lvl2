@@ -9,35 +9,35 @@ const compareData = (obj1, obj2) => {
 
     if (_.isObject(value1) && _.isObject(value2)) {
       return {
-        type: 'object',
+        type: 'nested',
         key,
         children: compareData(value1, value2),
       };
     }
     if (!_.has(obj2, key)) {
       return {
-        type: 'delete',
+        type: 'deleted',
         key,
         value: value1,
       };
     }
     if (!_.has(obj1, key)) {
       return {
-        type: 'add',
+        type: 'added',
         key,
         value: value2,
       };
     }
     if (!_.isEqual(value1, value2)) {
       return {
-        type: 'defferent',
+        type: 'changed',
         key,
         value1,
         value2,
       };
     }
     return {
-      type: 'same',
+      type: 'unchanged',
       key,
       value: value1,
     };
