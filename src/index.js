@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import compareData from './compareData.js';
 import chooseParser from './parsers.js';
-import format from './formats/format.js';
+import format from './formats/index.js';
 
 const getPath = (file) => path.resolve(process.cwd(), '__fixtures__', file);
 const readFile = (file) => fs.readFileSync(getPath(file), 'utf-8');
