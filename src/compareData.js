@@ -7,28 +7,28 @@ const compareData = (obj1, obj2) => {
     const value1 = obj1[key];
     const value2 = obj2[key];
 
-    if (_.isObject(value1) && _.isObject(value2)) {
+    if (_.isObject(obj1[key]) && _.isObject(obj2[key])) {
       return {
         type: 'nested',
         key,
-        children: compareData(value1, value2),
+        children: compareData(obj1[key], obj2[key]),
       };
     }
     if (!_.has(obj2, key)) {
       return {
         type: 'deleted',
         key,
-        value: value1,
+        value: obj1[key],
       };
     }
     if (!_.has(obj1, key)) {
       return {
         type: 'added',
         key,
-        value: value2,
+        value: obj2[key],
       };
     }
-    if (!_.isEqual(value1, value2)) {
+    if (!_.isEqual(obj1[key], obj2[key])) {
       return {
         type: 'changed',
         key,
@@ -39,7 +39,7 @@ const compareData = (obj1, obj2) => {
     return {
       type: 'unchanged',
       key,
-      value: value1,
+      value: obj1[key],
     };
   });
   return result;
