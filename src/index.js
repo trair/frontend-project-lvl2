@@ -4,8 +4,8 @@ import compareData from './compareData.js';
 import chooseParser from './parsers.js';
 import format from './formats/index.js';
 
-const getPath = (file) => path.resolve(process.cwd(), '__fixtures__', file);
-const readFile = (file) => fs.readFileSync(getPath(file), 'utf-8');
+const getAbsolutePath = (file) => path.resolve(process.cwd(), '__fixtures__', file);
+const readFile = (file) => fs.readFileSync(getAbsolutePath(file), 'utf-8');
 const getFormat = (file) => file.split('.')[1];
 
 const genDiff = (file1, file2, nameOfFormat = 'stylish') => {
