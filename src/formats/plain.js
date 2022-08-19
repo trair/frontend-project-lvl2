@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const toDoString = (value) => {
+const stringify = (value) => {
   if (_.isObject(value)) {
     return '[complex value]';
   }
@@ -25,9 +25,9 @@ const plain = (obj) => {
       case 'delete':
         return `Property '${parent}${key}' was removed`;
       case 'add':
-        return `Property '${parent}${key}' was added with value: ${toDoString(value)}`;
+        return `Property '${parent}${key}' was added with value: ${stringify(value)}`;
       case 'defferent':
-        return `Property '${parent}${key}' was updated. From ${toDoString(value1)} to ${toDoString(value2)}`;
+        return `Property '${parent}${key}' was updated. From ${stringify(value1)} to ${stringify(value2)}`;
       case 'same':
         return [];
       default:
