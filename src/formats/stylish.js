@@ -27,17 +27,17 @@ const stylish = (obj) => {
     const result1 = `${genIndent(numer)}- ${key}: ${makeString(value1, numer)}`;
     const result2 = `${genIndent(numer)}+ ${key}: ${makeString(value2, numer)}`;
     switch (type) {
-      case 'object': {
+      case 'nested': {
         const objectResult = children.flatMap((child) => iter(child, numer + 1));
         return `${genIndent(numer)}  ${key}: {\n${objectResult.join('\n')}\n${genIndent(numer)}  }`;
       }
-      case 'delete':
+      case 'deleted':
         return `${genIndent(numer)}- ${key}: ${makeString(value, numer)}`;
-      case 'add':
+      case 'added':
         return `${genIndent(numer)}+ ${key}: ${makeString(value, numer)}`;
-      case 'defferent':
+      case 'changed':
         return (`${result1}\n${result2}`);
-      case 'same':
+      case 'unchanged':
         return `${genIndent(numer)}  ${key}: ${makeString(value, numer)}`;
       default:
         console.log('Error');
