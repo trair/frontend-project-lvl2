@@ -13,13 +13,13 @@ const file1json = getFixturePath('file1.json');
 const file2json = getFixturePath('file2.json');
 const file1yaml = getFixturePath('file1.yaml');
 const file2yml = getFixturePath('file2.yml');
-const fileFormat = [['stylish', stylishResult], ['plain', plainResult], ['json', jsonResult]];
+const fileFormats = [['stylish', stylishResult], ['plain', plainResult], ['json', jsonResult]];
 
 test('result is string', () => {
   expect(typeof genDiff(file1json, file2json, 'stylish')).toEqual('string');
 });
 
-test.each(fileFormat)('formater %s, file extension json', (format, expected) => {
+test.each(fileFormats)('formater %s, file extension json', (format, expected) => {
   expect(genDiff(file1json, file2json, format)).toEqual(expected);
 });
 
