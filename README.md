@@ -18,7 +18,7 @@ Difference Calculator is a program that determines the difference between two da
 
 ```
 make install
-make link
+make lint
 ```
 
 ### Compare flat .json files:
