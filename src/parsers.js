@@ -1,6 +1,6 @@
 import yaml from 'js-yaml';
 
-const parse = (data, format) => {
+const chooseParser = (data, format) => {
   switch (format) {
     case 'json':
       return JSON.parse(data);
@@ -11,4 +11,4 @@ const parse = (data, format) => {
       throw new Error(`format ${format} is not supported`);
   }
 };
-export default parse;
+export default chooseParser;
