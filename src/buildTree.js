@@ -14,14 +14,14 @@ const buildTree = (data1, data2) => {
         children: buildTree(value1, value2),
       };
     }
-    if (!_.has(obj2, key)) {
+    if (!_.has(data2, key)) {
       return {
         type: 'delete',
         key,
         value: value1,
       };
     }
-    if (!_.has(obj1, key)) {
+    if (!_.has(data1, key)) {
       return {
         type: 'add',
         key,
