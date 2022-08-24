@@ -16,32 +16,26 @@ const makeString = (value, depth = 1) => {
 
 const stylish = (data) => {
   const iter = (node, depth = 1) => {
-    const {
-      type,
-      key,
-      value,
-      value1,
-      value2,
-      children,
-    } = node;
-    const result1 = `${genIndent(depth)}- ${key}: ${makeString(value1, depth)}`;
-    const result2 = `${genIndent(depth)}+ ${key}: ${makeString(value2, depth)}`;
-    switch (type) {
-      case 'nested': {
-        const objectResult = children.flatMap((child) => iter(child, depth + 1));
-        return `${genIndent(depth)}  ${key}: {\n${objectResult.join('\n')}\n${genIndent(depth)}  }`;
+    const result = node.map((item) => {
+      const result1 = `${genIndent(depth)}- ${item.key}: ${makeString(item.valueDeleted, depth)}`;
+      const result2 = `${genIndent(depth)}+ ${item.key}: ${makeString(item.valueAdded, depth)}`;
+      switch (item.type) {
+        case 'nested': {
+          const objectResult = children.flatMap((child) => iter(child, depth + 1));
+          return `${genIndent(depth)}  ${item.key}: {\n${objectResult.join('\n')}\n${genIndent(depth)}  }`;
+        }
+        case 'deleted':
+          return `${genIndent(depth)}- ${item.key}: ${makeString(item.value, depth)}`;
+        case 'added':
+          return `${genIndent(depth)}+ ${item.key}: ${makeString(item.value, depth)}`;
+        case 'changed':
+          return (`${result1}\n${result2}`);
+        case 'unchanged':
+          return `${genIndent(depth)}  ${item.key}: ${makeString(item.value, depth)}`;
+        default:
+          throw new Error(`Error. Unknown type ${item.type}!`);
       }
-      case 'deleted':
-        return `${genIndent(depth)}- ${key}: ${makeString(value, depth)}`;
-      case 'added':
-        return `${genIndent(depth)}+ ${key}: ${makeString(value, depth)}`;
-      case 'changed':
-        return (`${result1}\n${result2}`);
-      case 'unchanged':
-        return `${genIndent(depth)}  ${key}: ${makeString(value, depth)}`;
-      default:
-        throw new Error(`Error. Unknown type ${type}!`);
-    }
+    });
   };
   const result = data.map((item) => iter(item));
   return `{\n${result.join('\n')}\n}`;
