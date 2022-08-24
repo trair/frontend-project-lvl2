@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const compareData = (data1, data2) => {
+const buildTree = (data1, data2) => {
   const uniqKeys = _.uniq([...Object.keys(data1), ...Object.keys(data2)]);
   const sortKeys = _.sortBy(uniqKeys);
   const result = sortKeys.map((key) => {
@@ -11,7 +11,7 @@ const compareData = (data1, data2) => {
       return {
         type: 'nested',
         key,
-        children: compareData(value1, value2),
+        children: buildTree(value1, value2),
       };
     }
     if (!_.has(data2, key)) {
@@ -44,4 +44,4 @@ const compareData = (data1, data2) => {
   });
   return result;
 };
-export default compareData;
+export default buildTree;
