@@ -25,7 +25,7 @@ const plain = (data) => {
       case 'deleted':
         return `Property '${parent}${key}' was removed`;
       case 'unchanged':
-        return null;
+        break;
       case 'added':
         return `Property '${parent}${key}' was added with value: ${stringify(value)}`;
       case 'changed':
@@ -33,6 +33,7 @@ const plain = (data) => {
       default:
         throw new Error(`Error. Unknown type ${type}!`);
     }
+    return null;
   };
   const result = data.map((item) => iter(item));
   return `${result.join('\n')}`;
