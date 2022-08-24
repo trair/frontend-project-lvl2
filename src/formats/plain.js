@@ -31,7 +31,7 @@ const plain = (data) => {
       case 'changed':
         return `Property '${parent}${key}' was updated. From ${stringify(value1)} to ${stringify(value2)}`;
       default:
-        console.log('Error. Unknown type!');
+        throw new Error(`Error. Unknown type ${type}!`);
     }
     return node;
   };
