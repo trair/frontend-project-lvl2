@@ -10,22 +10,22 @@ const stringify = (value) => {
 const plain = (data) => {
   const iter = (node, parent = '') => {
     const result = node
-      .map((data) => {
-        const newParents = [...parent, data.key];
+      .map((item) => {
+        const newParents = [...parent, item.key];
         const joinNewParents = newParents.join('.');
-        switch (type) {
+        switch (item.type) {
           case 'nested':
-            return `${iter(data.value, [...parent, data.key])}`;
+            return `${iter(item.value, [...parent, item.key])}`;
           case 'deleted':
-            return `Property '${joinNewParents }' was removed`;
+            return `Property '${joinNewParents}' was removed`;
           case 'unchanged':
             return null;
           case 'added':
-            return `Property '${joinNewParents }' was added with value: ${stringify(data.value)}`;
+            return `Property '${joinNewParents}' was added with value: ${stringify(item.value)}`;
           case 'changed':
-            return `Property '${joinNewParents }' was updated. From ${stringify(data.value[0])} to ${stringify(data.value2[1])}`;
+            return `Property '${joinNewParents}' was updated. From ${stringify(item.value[0])} to ${stringify(item.value2[1])}`;
           default:
-            throw new Error(`Error. Unknown type ${type}!`);
+            throw new Error(`Error. Unknown type ${item.type}!`);
         }
       })
       .filter((element) => element !== null)

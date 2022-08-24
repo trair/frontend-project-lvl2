@@ -32,7 +32,7 @@ const buildTree = (data1, data2) => {
       return {
         type: 'changed',
         key,
-        value: [value1, value2]
+        value: [value1, value2],
       };
     }
     return {
