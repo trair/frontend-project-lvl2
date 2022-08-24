@@ -15,10 +15,6 @@ const file1yaml = getFixturePath('file1.yaml');
 const file2yml = getFixturePath('file2.yml');
 const fileFormats = [['stylish', stylishResult], ['plain', plainResult], ['json', jsonResult]];
 
-test('result is string', () => {
-  expect(typeof genDiff(file1json, file2json, 'stylish')).toEqual('string');
-});
-
 test.each(fileFormats)('formater %s, file extension json', (format, expected) => {
   expect(genDiff(file1json, file2json, format)).toEqual(expected);
 });
