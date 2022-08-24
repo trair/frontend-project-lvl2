@@ -12,7 +12,8 @@ const plain = (data) => {
     const {
       type,
       key,
-      value,
+      value1,
+      value2,
       children,
     } = node;
     switch (type) {
@@ -23,9 +24,9 @@ const plain = (data) => {
       case 'deleted':
         return `Property '${parent}${key}' was removed`;
       case 'added':
-        return `Property '${parent}${key}' was added with value: ${stringify(value)}`;
+        return `Property '${parent}${key}' was added with value: ${stringify(value2)}`;
       case 'changed':
-        return `Property '${parent}${key}' was updated. From ${stringify(value)} to ${stringify(value)}`;
+        return `Property '${parent}${key}' was updated. From ${stringify(value1)} to ${stringify(value2)}`;
       case 'unchanged':
         return [];
       default:
