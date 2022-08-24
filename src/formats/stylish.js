@@ -1,21 +1,21 @@
 import _ from 'lodash';
 
-const genIndent = (numer, str = ' ') => str.repeat(numer * 4 - 2);
+const genIndent = (depth, str = ' ') => str.repeat(depth * 4 - 2);
 
-const makeString = (value, numer = 1) => {
+const makeString = (value, depth = 1) => {
   if (!_.isObject(value)) {
     return value;
   }
   const keys = Object.keys(value);
   const result = keys.map((key) => {
     const newKey = value[key];
-    return `${genIndent(numer + 1)}  ${key}: ${makeString(newKey, numer + 1)}`;
+    return `${genIndent(depth + 1)}  ${key}: ${makeString(newKey, depth + 1)}`;
   });
-  return `{\n${result.join('\n')}\n  ${genIndent(numer)}}`;
+  return `{\n${result.join('\n')}\n  ${genIndent(depth)}}`;
 };
 
 const stylish = (obj) => {
-  const iter = (node, numer = 1) => {
+  const iter = (node, depth = 1) => {
     const {
       type,
       key,
@@ -24,21 +24,21 @@ const stylish = (obj) => {
       value2,
       children,
     } = node;
-    const result1 = `${genIndent(numer)}- ${key}: ${makeString(value1, numer)}`;
-    const result2 = `${genIndent(numer)}+ ${key}: ${makeString(value2, numer)}`;
+    const result1 = `${genIndent(depth)}- ${key}: ${makeString(value1, depth)}`;
+    const result2 = `${genIndent(depth)}+ ${key}: ${makeString(value2, depth)}`;
     switch (type) {
       case 'nested': {
-        const objectResult = children.flatMap((child) => iter(child, numer + 1));
-        return `${genIndent(numer)}  ${key}: {\n${objectResult.join('\n')}\n${genIndent(numer)}  }`;
+        const objectResult = children.flatMap((child) => iter(child, depth + 1));
+        return `${genIndent(depth)}  ${key}: {\n${objectResult.join('\n')}\n${genIndent(depth)}  }`;
       }
       case 'deleted':
-        return `${genIndent(numer)}- ${key}: ${makeString(value, numer)}`;
+        return `${genIndent(depth)}- ${key}: ${makeString(value, depth)}`;
       case 'added':
-        return `${genIndent(numer)}+ ${key}: ${makeString(value, numer)}`;
+        return `${genIndent(depth)}+ ${key}: ${makeString(value, depth)}`;
       case 'changed':
         return (`${result1}\n${result2}`);
       case 'unchanged':
-        return `${genIndent(numer)}  ${key}: ${makeString(value, numer)}`;
+        return `${genIndent(depth)}  ${key}: ${makeString(value, depth)}`;
       default:
         console.log('Error');
     }
