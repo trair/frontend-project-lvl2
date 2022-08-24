@@ -22,13 +22,13 @@ const plain = (obj) => {
         const objectResult = children.flatMap((child) => iter(child, `${parent}${key}.`));
         return objectResult.join('\n');
       }
-      case 'delete':
+      case 'deleted':
         return `Property '${parent}${key}' was removed`;
-      case 'add':
+      case 'added':
         return `Property '${parent}${key}' was added with value: ${stringify(value)}`;
-      case 'defferent':
+      case 'changed':
         return `Property '${parent}${key}' was updated. From ${stringify(value1)} to ${stringify(value2)}`;
-      case 'same':
+      case 'unchanged':
         return [];
       default:
         console.log('Error');
