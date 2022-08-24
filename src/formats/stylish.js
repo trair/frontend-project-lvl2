@@ -14,7 +14,7 @@ const makeString = (value, depth = 1) => {
   return `{\n${result.join('\n')}\n  ${genIndent(depth)}}`;
 };
 
-const stylish = (obj) => {
+const stylish = (data) => {
   const iter = (node, depth = 1) => {
     const {
       type,
@@ -44,7 +44,7 @@ const stylish = (obj) => {
     }
     return node;
   };
-  const result = obj.map((item) => iter(item));
+  const result = data2.map((item) => iter(item));
   return `{\n${result.join('\n')}\n}`;
 };
 export default stylish;
