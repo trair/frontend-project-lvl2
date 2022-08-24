@@ -14,11 +14,14 @@ Difference Calculator is a program that determines the difference between two da
 
 ---
 
+### Required NodeJS version:
+
+v17.1.0
+
 ### Installation:
 
 ```
 make install
-make lint
 ```
 
 ### Compare flat .json files:
