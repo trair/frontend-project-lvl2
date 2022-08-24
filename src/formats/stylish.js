@@ -40,7 +40,7 @@ const stylish = (data) => {
       case 'unchanged':
         return `${genIndent(depth)}  ${key}: ${makeString(value, depth)}`;
       default:
-        console.log('Error');
+        console.log('Error. Unknown type!');
     }
     return node;
   };

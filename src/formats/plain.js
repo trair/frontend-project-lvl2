@@ -31,7 +31,7 @@ const plain = (data) => {
       case 'unchanged':
         return [];
       default:
-        console.log('Error');
+        console.log('Error. Unknown type!');
     }
     return node;
   };
