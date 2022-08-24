@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 const buildTree = (data1, data2) => {
-  const uniqKeys = _.uniq([...Object.keys(data1), ...Object.keys(data2)]);
+  const uniqKeys = _.uniq(_.keys(data1), _.keys(data2));
   const sortKeys = _.sortBy(uniqKeys);
   const result = sortKeys.map((key) => {
     const value1 = data1[key];
