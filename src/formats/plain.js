@@ -35,7 +35,7 @@ const plain = (data) => {
     }
     return node;
   };
-  const result = obj.map((item) => iter(item));
+  const result = data.map((item) => iter(item));
   return `${result.join('\n')}`;
 };
 export default plain;

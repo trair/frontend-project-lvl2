@@ -11,7 +11,7 @@ const buildTree = (data1, data2) => {
       return {
         type: 'nested',
         key,
-        children: compareData(value1, value2),
+        children: buildTree(value1, value2),
       };
     }
     if (!_.has(data2, key)) {
