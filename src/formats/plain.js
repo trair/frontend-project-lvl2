@@ -34,7 +34,7 @@ const plain = (data) => {
         throw new Error(`Error. Unknown type ${type}!`);
     }
   };
-  const result = data.map((item) => _.compact(iter(item)));
-  return `${result.join('\n')}`;
+  const result = data.map((item) => (iter(item)));
+  return _compact(`${result.join('\n')}`);
 };
 export default plain;
