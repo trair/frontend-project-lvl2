@@ -29,7 +29,7 @@ const plain = (data) => {
       case 'changed':
         return `Property '${parent}${key}' was updated. From ${stringify(value1)} to ${stringify(value2)}`;
       case 'unchanged':
-        return [];
+        return null;
       default:
         console.log('Error. Unknown type!');
     }
