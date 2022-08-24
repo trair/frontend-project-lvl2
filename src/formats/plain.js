@@ -35,6 +35,6 @@ const plain = (data) => {
     }
   };
   const result = data.map((item) => (iter(item)));
-  return _compact(`${result.join('\n')}`);
+  return _.compact(`${result.join('\n')}`);
 };
 export default plain;
