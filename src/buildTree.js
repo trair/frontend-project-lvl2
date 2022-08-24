@@ -5,7 +5,7 @@ const buildTree = (data1, data2) => {
   const dataKeys2 = Object.keys(data2);
   const sortKeys = _.sortBy(_.union(dataKeys1, dataKeys2));
   const result = sortKeys.map((key) => {
-    if (_.isObject(value1) && _.isObject(value2)) {
+    if (_.isObject(data1[key]) && _.isObject(data2[key])) {
       return {
         type: 'nested',
         key,
@@ -26,7 +26,7 @@ const buildTree = (data1, data2) => {
         value: data2[key],
       };
     }
-    if (!_.isEqual(value1, value2)) {
+    if (!_.isEqual(data1[key], data2[key])) {
       return {
         type: 'changed',
         key,

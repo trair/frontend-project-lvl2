@@ -21,7 +21,7 @@ const stylish = (data) => {
       const result2 = `${genIndent(depth)}+ ${item.key}: ${makeString(item.valueAdded, depth)}`;
       switch (item.type) {
         case 'nested': {
-          const objectResult = children.flatMap((child) => iter(child, depth + 1));
+          const objectResult = item.children.flatMap((child) => iter(child, depth + 1));
           return `${genIndent(depth)}  ${item.key}: {\n${objectResult.join('\n')}\n${genIndent(depth)}  }`;
         }
         case 'deleted':
@@ -36,6 +36,8 @@ const stylish = (data) => {
           throw new Error(`Error. Unknown type ${item.type}!`);
       }
     });
+
+    return result.join('\n');
   };
   const result = data.map((item) => iter(item));
   return `{\n${result.join('\n')}\n}`;
