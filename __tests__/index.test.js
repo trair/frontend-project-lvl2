@@ -5,20 +5,19 @@ import genDiff from '../src/index.js';
 const getFixturePath = (file) => path.resolve(process.cwd(), '__fixtures__', file);
 const readFile = (file) => fs.readFileSync(getFixturePath(file), 'utf-8');
 
-const stylishResult = readFile('stylishResult.txt');
-const plainResult = readFile('plainResult.txt');
-const jsonResult = readFile('jsonResult.txt');
+const cases = [
+  ['file1.json', 'file2.json', 'stylishResult.txt', 'stylish'],
+  ['file1.yml', 'file2.yml', 'stylishResult.txt', 'stylish'],
+  ['file1.json', 'file2.json', 'plainResult.txt', 'plain'],
+  ['file1.yml', 'file2.yml', 'plainResult.txt', 'plain'],
+  ['file1.json', 'file2.json', 'jsonResult.txt', 'json'],
+  ['file1.yml', 'file2.yml', 'jsonResult.txt', 'json'],
+];
 
-const file1json = getFixturePath('file1.json');
-const file2json = getFixturePath('file2.json');
-const file1yaml = getFixturePath('file1.yaml');
-const file2yml = getFixturePath('file2.yml');
-const fileFormats = [['stylish', stylishResult], ['plain', plainResult], ['json', jsonResult]];
-
-test.each(fileFormats)('formater %s, file extension json', (format, expected) => {
-  expect(genDiff(file1json, file2json, format)).toEqual(expected);
-});
-
-test.each(fileFormats)('formater %s, file extension yaml', (format, expected) => {
-  expect(genDiff(file1yaml, file2yml, format)).toEqual(expected);
+test.each(cases)('Compare %s and %s to expect %s in "$s" style', (firstArgument, secondArgument, expectedResult, format) => {
+  const filepath1 = getFixturePath(firstArgument);
+  const filepath2 = getFixturePath(secondArgument);
+  const getResult = readFile(expectedResult);
+  const result = genDiff(filepath1, filepath2, format);
+  expect(result).toEqual(getResult);
 });
