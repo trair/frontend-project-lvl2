@@ -18,7 +18,7 @@ const plain = (obj) => {
       children,
     } = node;
     switch (type) {
-      case 'object': {
+      case 'nested': {
         const objectResult = children.flatMap((child) => iter(child, `${parent}${key}.`));
         return objectResult.join('\n');
       }
