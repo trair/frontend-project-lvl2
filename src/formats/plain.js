@@ -7,31 +7,35 @@ const stringify = (value) => {
   return typeof value === 'string' ? `'${value}'` : value;
 };
 
-const plain = (data) => {
+const plain = (obj) => {
   const iter = (node, parent = '') => {
-    const result = node
-      .map((item) => {
-        const newParents = [...parent, item.key];
-        const joinNewParents = newParents.join('.');
-        switch (item.type) {
-          case 'nested':
-            return `${iter(item.value, [...parent, item.key])}`;
-          case 'deleted':
-            return `Property '${joinNewParents}' was removed`;
-          case 'unchanged':
-            return null;
-          case 'added':
-            return `Property '${joinNewParents}' was added with value: ${stringify(item.value)}`;
-          case 'changed':
-            return `Property '${joinNewParents}' was updated. From ${stringify(item.value[0])} to ${stringify(item.value2[1])}`;
-          default:
-            throw new Error(`Error. Unknown type ${item.type}!`);
-        }
-      })
-      .filter((element) => element !== null)
-      .join('\n');
-    return result;
+    const {
+      type,
+      key,
+      value,
+      value1,
+      value2,
+      children,
+    } = node;
+    switch (type) {
+      case 'object': {
+        const objectResult = children.flatMap((child) => iter(child, `${parent}${key}.`));
+        return objectResult.join('\n');
+      }
+      case 'delete':
+        return `Property '${parent}${key}' was removed`;
+      case 'add':
+        return `Property '${parent}${key}' was added with value: ${stringify(value)}`;
+      case 'defferent':
+        return `Property '${parent}${key}' was updated. From ${stringify(value1)} to ${stringify(value2)}`;
+      case 'same':
+        return [];
+      default:
+        console.log('Error');
+    }
+    return node;
   };
-  return iter(data, []);
+  const result = obj.map((item) => iter(item));
+  return `${result.join('\n')}`;
 };
 export default plain;
