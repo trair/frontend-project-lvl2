@@ -12,6 +12,7 @@ const plain = (data) => {
     const {
       type,
       key,
+      value,
       value1,
       value2,
       children,
@@ -24,17 +25,17 @@ const plain = (data) => {
       case 'deleted':
         return `Property '${parent}${key}' was removed`;
       case 'added':
-        return `Property '${parent}${key}' was added with value: ${stringify(value2)}`;
+        return `Property '${parent}${key}' was added with value: ${stringify(value)}`;
       case 'changed':
         return `Property '${parent}${key}' was updated. From ${stringify(value1)} to ${stringify(value2)}`;
       case 'unchanged':
         return [];
       default:
-        console.log('Error. Unknown type!');
+        console.log('Error');
     }
     return node;
   };
-  const result = data.map((item) => iter(item));
+  const result = obj.map((item) => iter(item));
   return `${result.join('\n')}`;
 };
 export default plain;
