@@ -1,9 +1,13 @@
 import path from 'path';
 import fs from 'fs';
 import genDiff from '../src/index.js';
+import { fileURLToPath } from 'url';
 
-const getFixturePath = (file) => path.resolve(process.cwd(), '__fixtures__', file);
-const readFile = (file) => fs.readFileSync(getFixturePath(file), 'utf-8');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
+const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
 const cases = [
   ['file1.json', 'file2.json', 'stylishResult.txt', 'stylish'],
