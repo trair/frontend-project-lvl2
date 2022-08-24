@@ -42,7 +42,6 @@ const stylish = (data) => {
       default:
         throw new Error(`Error. Unknown type ${type}!`);
     }
-    
   };
   const result = data.map((item) => iter(item));
   return `{\n${result.join('\n')}\n}`;
