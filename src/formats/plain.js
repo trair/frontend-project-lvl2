@@ -24,12 +24,12 @@ const plain = (data) => {
       }
       case 'deleted':
         return `Property '${parent}${key}' was removed`;
+      case 'unchanged':
+        return null;
       case 'added':
         return `Property '${parent}${key}' was added with value: ${stringify(value)}`;
       case 'changed':
         return `Property '${parent}${key}' was updated. From ${stringify(value1)} to ${stringify(value2)}`;
-      case 'unchanged':
-        return null;
       default:
         console.log('Error. Unknown type!');
     }
