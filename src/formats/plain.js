@@ -25,7 +25,7 @@ const plain = (data) => {
       case 'deleted':
         return `Property '${parent}${key}' was removed`;
       case 'unchanged':
-        return '';
+        return null;
       case 'added':
         return `Property '${parent}${key}' was added with value: ${stringify(value)}`;
       case 'changed':
