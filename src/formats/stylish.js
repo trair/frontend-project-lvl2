@@ -44,7 +44,7 @@ const stylish = (data) => {
     }
     return node;
   };
-  const result = data2.map((item) => iter(item));
+  const result = data.map((item) => iter(item));
   return `{\n${result.join('\n')}\n}`;
 };
 export default stylish;
