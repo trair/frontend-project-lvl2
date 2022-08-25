@@ -39,6 +39,6 @@ const stylish = (data) => {
 
     return result.join('\n');
   };
-  return `{\n${iter(data, [])}\n}`;
+  return `{\n${iter(data)}\n}`;
 };
 export default stylish;
