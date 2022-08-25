@@ -1,6 +1,9 @@
 import _ from 'lodash';
 
-const genIndent = (depth, str = ' ') => str.repeat(depth * 4 - 2);
+const genIndent = (depth, replacer = ' ', spacesCount = 4) => {
+  const indentSize = depth * spacesCount;
+  return replacer.repeat(indentSize - 1);
+};
 
 const makeString = (value, depth = 1) => {
   if (!_.isObject(value)) {
@@ -14,31 +17,30 @@ const makeString = (value, depth = 1) => {
   return `{\n${result.join('\n')}\n  ${genIndent(depth)}}`;
 };
 
-const stylish = (data) => {
-  const iter = (node, depth = 1) => {
-    const result = node.map((item) => {
-      const result1 = `${genIndent(depth)}- ${item.key}: ${makeString(item.valueDeleted, depth)}`;
-      const result2 = `${genIndent(depth)}+ ${item.key}: ${makeString(item.valueAdded, depth)}`;
-      switch (item.type) {
-        case 'nested': {
-          const objectResult = item.children.flatMap((child) => iter(child, depth + 1));
-          return `${genIndent(depth)}  ${item.key}: {\n${objectResult.join('\n')}\n${genIndent(depth)}  }`;
-        }
-        case 'deleted':
-          return `${genIndent(depth)}- ${item.key}: ${makeString(item.value, depth)}`;
-        case 'added':
-          return `${genIndent(depth)}+ ${item.key}: ${makeString(item.value, depth)}`;
-        case 'changed':
-          return (`${result1}\n${result2}`);
-        case 'unchanged':
-          return `${genIndent(depth)}  ${item.key}: ${makeString(item.value, depth)}`;
-        default:
-          throw new Error(`Error. Unknown type ${item.type}!`);
-      }
-    });
+const iter = (tree, depth = 1) => {
+  const result = tree.map((node) => {
+    const indent = genIndent(depth);
+    switch (node.status) {
+      case 'deleted':
+        return `${indent.slice(1)}- ${node.key}: ${makeString(node.value, depth)}`;
+      case 'added':
+        return `${indent.slice(1)}+ ${node.key}: ${makeString(node.value, depth)}`;
+      case 'unchanged':
+        return `${indent.slice(1)}  ${node.key}: ${makeString(node.value, depth)}`;
+      case 'changed':
+        return [
+          `${indent.slice(1)}- ${node.key}: ${makeString(node.valueDeleted, depth)}`,
+          `${indent.slice(1)}+ ${node.key}: ${makeString(node.valueAdded, depth)}`,
+        ];
+      case 'nested':
+        return `${indent} ${node.key}: {\n${iter(node.children, depth + 1)}\n${indent} }`;
+      default:
+        throw new Error('missing selector');
+    }
+  });
 
-    return result.join('\n');
-  };
-  return `{\n${iter(data)}\n}`;
+  return _.flatten(result).join('\n');
 };
+
+const stylish = (data) => `{\n${iter(data)}\n}`;
 export default stylish;
