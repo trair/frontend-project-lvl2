@@ -20,7 +20,11 @@ const makeString = (value, depth = 1) => {
 const iter = (tree, depth = 1) => {
   const result = tree.map((node) => {
     const indent = genIndent(depth);
-    switch (node.status) {
+    switch (node.type) {
+      case 'nested': {
+        const objectResult = node.children.flatMap((child) => iter(child, depth + 1));
+        return `${genIndent(depth)}  ${node.key}: {\n${objectResult.join('\n')}\n${genIndent(depth)}  }`;
+      }
       case 'deleted':
         return `${indent.slice(1)}- ${node.key}: ${makeString(node.value, depth)}`;
       case 'added':
@@ -32,10 +36,6 @@ const iter = (tree, depth = 1) => {
           `${indent.slice(1)}- ${node.key}: ${makeString(node.valueDeleted, depth)}`,
           `${indent.slice(1)}+ ${node.key}: ${makeString(node.valueAdded, depth)}`,
         ];
-      case 'nested': {
-        const objectResult = node.children.flatMap((child) => iter(child, depth + 1));
-        return `${genIndent(depth)}  ${node.key}: {\n${objectResult.join('\n')}\n${genIndent(depth)}  }`;
-      }
       default:
         throw new Error(`Error. Unknown type ${node.type}!`);
     }
