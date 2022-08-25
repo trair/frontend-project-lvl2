@@ -16,7 +16,7 @@ const makeString = (value, depth = 1) => {
 
 const stylish = (data) => {
   const iter = (node, depth = 1) => {
-    const result = node.map((item) => {
+    const result = node.flatMap((item) => {
       const result1 = `${genIndent(depth)}- ${item.key}: ${makeString(item.valueDeleted, depth)}`;
       const result2 = `${genIndent(depth)}+ ${item.key}: ${makeString(item.valueAdded, depth)}`;
       switch (item.type) {
