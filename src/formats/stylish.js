@@ -32,8 +32,10 @@ const iter = (tree, depth = 1) => {
           `${indent.slice(1)}- ${node.key}: ${makeString(node.valueDeleted, depth)}`,
           `${indent.slice(1)}+ ${node.key}: ${makeString(node.valueAdded, depth)}`,
         ];
-      case 'nested':
-        return `${indent} ${node.key}: {\n${iter(node.children, depth + 1)}\n${indent} }`;
+      case 'nested':{
+        const objectResult = item.children.flatMap((child) => iter(child, depth + 1));
+        return `${genIndent(depth)}  ${node.key}: {\n${objectResult.join('\n')}\n${genIndent(depth)}  }`;
+      }
       default:
         throw new Error(`Error. Unknown type ${node.type}!`);
     }
