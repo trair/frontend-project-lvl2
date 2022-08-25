@@ -35,7 +35,7 @@ const iter = (tree, depth = 1) => {
       case 'nested':
         return `${indent} ${node.key}: {\n${iter(node.children, depth + 1)}\n${indent} }`;
       default:
-        throw new Error('missing selector');
+        throw new Error(`Error. Unknown type ${node.type}!`);
     }
   });
 
