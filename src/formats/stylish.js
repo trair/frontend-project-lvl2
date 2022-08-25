@@ -41,7 +41,7 @@ const iter = (tree, depth = 1) => {
     }
   });
 
-  return _.flatten(result).join('\n');
+  return result.join('\n');
 };
 
 const stylish = (data) => `{\n${iter(data)}\n}`;
