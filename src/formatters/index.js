@@ -1,8 +1,8 @@
 import stylish from './stylish.js';
 import plain from './plain.js';
 
-const format = (tree, nameOfFormat) => {
-  switch (nameOfFormat) {
+const format = (tree, type) => {
+  switch (type) {
     case 'stylish':
       return stylish(tree);
     case 'plain':
@@ -10,7 +10,7 @@ const format = (tree, nameOfFormat) => {
     case 'json':
       return JSON.stringify(tree);
     default:
-      throw new Error(`format ${nameOfFormat} is not supported`);
+      throw new Error(`format ${type} is not supported`);
   }
 };
 export default format;
