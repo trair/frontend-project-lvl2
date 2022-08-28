@@ -20,7 +20,7 @@ const plain = (data) => {
         case 'added':
           return `Property '${newKeys.join('.')}' was added with value: ${stringify(item.value)}`;
         case 'changed':
-          return `Property '${newKeys.join('.')}' was updated. From ${stringify(item.valueDeleted)} to ${stringify(item.valueAdded)}`;
+          return `Property '${newKeys.join('.')}' was updated. From ${stringify(item.valueInFirstFile)} to ${stringify(item.valueInSecondFile)}`;
         case 'unchanged':
           return null;
         default:

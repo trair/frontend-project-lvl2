@@ -30,8 +30,8 @@ const buildTree = (data1, data2) => {
       return {
         type: 'changed',
         key,
-        valueDeleted: data1[key],
-        valueAdded: data2[key],
+        valueInFirstFile: data1[key],
+        valueInSecondFile: data2[key],
       };
     }
     return {

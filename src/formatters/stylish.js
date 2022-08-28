@@ -20,12 +20,12 @@ const stylish = (data) => {
       type,
       key,
       value,
-      valueDeleted,
-      valueAdded,
+      valueInFirstFile,
+      valueInSecondFile,
       children,
     } = node;
-    const result1 = `${genIndent(depth)}- ${key}: ${makeString(valueDeleted, depth)}`;
-    const result2 = `${genIndent(depth)}+ ${key}: ${makeString(valueAdded, depth)}`;
+    const result1 = `${genIndent(depth)}- ${key}: ${makeString(valueInFirstFile, depth)}`;
+    const result2 = `${genIndent(depth)}+ ${key}: ${makeString(valueInSecondFile, depth)}`;
     switch (type) {
       case 'nested': {
         const objectResult = children.flatMap((child) => iter(child, depth + 1));
