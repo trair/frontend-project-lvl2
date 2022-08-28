@@ -38,6 +38,6 @@ const stylish = (data) => {
     });
     return result.join('\n');
   };
-  return `{\n${iter(data, [])}\n}`;
+  return `{\n${iter(data, 1)}\n}`;
 };
 export default stylish;
