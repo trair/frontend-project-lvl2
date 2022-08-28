@@ -18,10 +18,9 @@ const cases = [
   ['file1.yaml', 'file2.yml', 'jsonResult.txt', 'json'],
 ];
 
-test.each(cases)('Compare %s and %s to expect %s in "$s" style', (firstArgument, secondArgument, expectedResult, format) => {
-  const filepath1 = getFixturePath(firstArgument);
-  const filepath2 = getFixturePath(secondArgument);
-  const getResult = readFile(expectedResult);
+test.each(cases)('Compare %s and %s to expect %s in "$s" style', (file1, file2, formatFile, format) => {
+  const filepath1 = getFixturePath(file1);
+  const filepath2 = getFixturePath(file2);
   const result = genDiff(filepath1, filepath2, format);
-  expect(result).toEqual(getResult);
+  expect(result).toEqual(readFile(formatFile));
 });

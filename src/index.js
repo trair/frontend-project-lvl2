@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import buildTree from './buildTree.js';
 import parse from './parsers.js';
-import format from './formats/index.js';
+import format from './formatters/index.js';
 
 const getAbsolutePath = (filepath) => path.resolve(process.cwd(), filepath);
 const readFile = (filepath) => fs.readFileSync(getAbsolutePath(filepath), 'utf-8');
