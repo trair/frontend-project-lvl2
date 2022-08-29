@@ -20,10 +20,7 @@ const stylish = (data) => {
       const result1 = `${genIndent(depth)}- ${item.key}: ${makeString(item.valueInFirstFile, depth)}`;
       const result2 = `${genIndent(depth)}+ ${item.key}: ${makeString(item.valueInSecondFile, depth)}`;
       switch (item.type) {
-        case 'nested': {
-          const objectResult = item.children.flatMap((child) => iter(child, depth + 1));
-          return `${genIndent(depth)}  ${item.key}: {\n${objectResult.join('\n')}\n${genIndent(depth)}  }`;
-        }
+        
         case 'deleted':
           return `${genIndent(depth)}- ${item.key}: ${makeString(item.value, depth)}`;
         case 'added':
@@ -36,8 +33,8 @@ const stylish = (data) => {
           throw new Error(`Unknown type ${item.type}`);
       }
     });
-    return _.flatten(result).join('\n');
+    return result.join('\n');
   };
-  return `{\n${iter(data, 1)}\n}`;
+  return `{\n${iter(data)}\n}`;
 };
 export default stylish;
