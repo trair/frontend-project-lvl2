@@ -20,7 +20,9 @@ const stylish = (data) => {
       const result1 = `${genIndent(depth)}- ${item.key}: ${makeString(item.valueInFirstFile, depth)}`;
       const result2 = `${genIndent(depth)}+ ${item.key}: ${makeString(item.valueInSecondFile, depth)}`;
       switch (item.type) {
-        
+        case 'nested': {
+          return `${genIndent(depth)}  ${item.key}: {\n${iter(item.children, depth + 1)}\n${genIndent(depth)}  }`;
+        }
         case 'deleted':
           return `${genIndent(depth)}- ${item.key}: ${makeString(item.value, depth)}`;
         case 'added':
