@@ -36,8 +36,8 @@ const stylish = (data) => {
           throw new Error(`Unknown type ${item.type}`);
       }
     });
-    return result.join('\n');
+    return _.flatten(result).join('\n');
   };
-  return `{\n${iter(data, [])}\n}`;
+  return `{\n${iter(data)}\n}`;
 };
 export default stylish;
