@@ -38,6 +38,6 @@ const stylish = (data) => {
     });
     return _.flatten(result).join('\n');
   };
-  return `{\n${iter(data)}\n}`;
+  return `{\n${iter(data, 1)}\n}`;
 };
 export default stylish;
