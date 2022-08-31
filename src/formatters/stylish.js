@@ -26,7 +26,7 @@ const stylish = (data) => {
         case 'added':
           return `${genIndent(depth)}+ ${item.key}: ${makeString(item.value, depth)}`;
         case 'changed':
-          return (`(${genIndent(depth)}- ${item.key}: ${makeString(item.value1, depth)})\n(${genIndent(depth)}+ ${item.key}: ${makeString(item.value2, depth)})`);
+          return (`${genIndent(depth)}- ${item.key}: ${makeString(item.value1, depth)}\n${genIndent(depth)}+ ${item.key}: ${makeString(item.value2, depth)}`);
         case 'unchanged':
           return `${genIndent(depth)}  ${item.key}: ${makeString(item.value, depth)}`;
         default:
