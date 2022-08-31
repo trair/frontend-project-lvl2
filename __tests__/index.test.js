@@ -24,3 +24,9 @@ test.each(cases)('Compare %s and %s to expect %s in "$s" style', (fileName1, fil
   const result = genDiff(filepath1, filepath2, format);
   expect(result).toEqual(readFile(resultFileName));
 });
+
+test('Default formater.', () => {
+  const expected = readFile('stylishResult.txt');
+  const actual = genDiff(getFixturePath('file1.json'), getFixturePath('file2.yml'));
+  expect(actual).toEqual(expected);
+});
