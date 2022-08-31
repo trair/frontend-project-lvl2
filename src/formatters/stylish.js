@@ -17,8 +17,8 @@ const makeString = (value, depth = 1) => {
 const stylish = (data) => {
   const iter = (node, depth = 1) => {
     const result = node.map((item) => {
-      const result1 = `${genIndent(depth)}- ${item.key}: ${makeString(item.valueInFirstFile, depth)}`;
-      const result2 = `${genIndent(depth)}+ ${item.key}: ${makeString(item.valueInSecondFile, depth)}`;
+      const result1 = `${genIndent(depth)}- ${item.key}: ${makeString(item.value1, depth)}`;
+      const result2 = `${genIndent(depth)}+ ${item.key}: ${makeString(item.value2, depth)}`;
       switch (item.type) {
         case 'nested': {
           return `${genIndent(depth)}  ${item.key}: {\n${iter(item.children, depth + 1)}\n${genIndent(depth)}  }`;
