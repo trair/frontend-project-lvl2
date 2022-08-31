@@ -19,9 +19,9 @@ const cases = [
 ];
 
 test.each(cases)('Compare %s and %s to expect %s in "$s" style', (fileName1, fileName2, resultFileName, format) => {
-  const filepath1 = getFixturePath(fileName1);
-  const filepath2 = getFixturePath(fileName2);
-  const result = genDiff(filepath1, filepath2, format);
+  const fixtureFilePath1 = getFixturePath(fileName1);
+  const fixtureFilePath2 = getFixturePath(fileName2);
+  const result = genDiff(fixtureFilePath1, fixtureFilePath2, format);
   expect(result).toEqual(readFile(resultFileName));
 });
 
