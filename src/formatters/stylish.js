@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const genIndent = (depth, str = ' ') => str.repeat(depth * 4 - 2);
+const genIndent = (depth, str = ' ', spacesCount = 4) => str.repeat((depth * spacesCount) - 2);
 
 const makeString = (value, depth = 1) => {
   if (!_.isObject(value)) {
